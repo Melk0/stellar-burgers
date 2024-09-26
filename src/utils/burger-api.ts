@@ -143,7 +143,7 @@ type TAuthResponse = TServerResponse<{
   user: TUser;
 }>;
 
-export const registerUserApi = (data: TRegisterData) =>
+export const registerUserApi = (data: TRegisterData, TRegisterData?: any) =>
   fetch(`${URL}/auth/register`, {
     method: 'POST',
     headers: {
