@@ -11,13 +11,23 @@ import {
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  useParams
+} from 'react-router-dom';
 import { AppHeader, IngredientDetails, OrderInfo, Modal } from '@components';
 import { ProtectedRoute } from '../protected-router/protected-router';
-import { useDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { useEffect } from 'react';
 import { getUser } from '../../services/userSlice';
 import { getIngredientsApiThunk } from '../../services/productSlice';
+import {
+  orderFeedSelector,
+  ordersFeedSelector
+} from '../../services/feedSlice';
 
 const App = () => {
   const location = useLocation();
@@ -29,6 +39,8 @@ const App = () => {
     dispatch(getUser());
     dispatch(getIngredientsApiThunk());
   }, []);
+  const orderData = useSelector(orderFeedSelector);
+  console.log(orderData?.number);
 
   return (
     <div className={styles.app}>
@@ -103,7 +115,17 @@ const App = () => {
             </div>
           }
         />
-        <Route path='/feed/:number' element={<OrderInfo />} />
+        <Route
+          path='/feed/:number'
+          element={
+            <div className={styles.detailPageWrap}>
+              <p className={`text text_type_main-large ${styles.detailHeader}`}>
+                {'#' + String(orderData?.number).padStart(6, '0')}
+              </p>
+              <OrderInfo />
+            </div>
+          }
+        />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
       {bgLocation && (
@@ -112,7 +134,7 @@ const App = () => {
             path='/feed/:number'
             element={
               <Modal
-                title='Индификатор заказа'
+                title={'#' + String(orderData?.number).padStart(6, '0')}
                 onClose={() => navigate(bgLocation)}
               >
                 <OrderInfo />
