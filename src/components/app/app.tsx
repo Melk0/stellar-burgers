@@ -40,7 +40,7 @@ const App = () => {
     dispatch(getIngredientsApiThunk());
   }, []);
   const orderData = useSelector(orderFeedSelector);
-  console.log(orderData?.number);
+
 
   return (
     <div className={styles.app}>
