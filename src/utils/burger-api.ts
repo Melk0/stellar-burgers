@@ -83,6 +83,7 @@ export const getFeedsApi = () =>
   fetch(`${URL}/orders/all`)
     .then((res) => checkResponse<TFeedsResponse>(res))
     .then((data) => {
+      console.log(data);
       if (data?.success) return data;
       return Promise.reject(data);
     });
@@ -143,7 +144,7 @@ type TAuthResponse = TServerResponse<{
   user: TUser;
 }>;
 
-export const registerUserApi = (data: TRegisterData) =>
+export const registerUserApi = (data: TRegisterData, TRegisterData?: any) =>
   fetch(`${URL}/auth/register`, {
     method: 'POST',
     headers: {
