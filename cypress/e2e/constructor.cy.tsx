@@ -52,7 +52,7 @@ describe('Конструктор', () => {
 
     it('Закрытие при клике на оверлей', () => {
       cy.get('[data-cy=bun-ingredients] li').first().click();
-      cy.wait(5000);
+      cy.wait(3000);
       cy.get('[id=modals]')
         .find('div')
         .click({ multiple: true, force: true })
@@ -69,11 +69,15 @@ describe('Конструктор', () => {
 
     cy.get('[data-cy=order-btn]').contains('Оформить заказ').click({ force: true });
 
-    cy.wait(5000);
+    cy.wait(3000);
+
     cy.get('[data-cy=order-btn]').contains('Оформить заказ').click({ force: true });
     cy.get('[data-cy=orderNumber]').should('contain', '123');
 
-    cy.get('[id=modals]').find('button').click().should('not.exist');
+    cy.get('[id=modals]')
+      .find('div')
+      .click({ multiple: true, force: true })
+      .should('not.exist');
 
     cy.contains('Выберите булки').should('exist');
     cy.contains('Выберите начинку').should('exist');
