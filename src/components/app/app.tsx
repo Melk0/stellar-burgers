@@ -41,7 +41,6 @@ const App = () => {
   }, []);
   const orderData = useSelector(orderFeedSelector);
 
-
   return (
     <div className={styles.app}>
       <AppHeader />

@@ -1,13 +1,13 @@
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
-  TRegisterData,
   getOrdersApi,
   getUserApi,
   loginUserApi,
   logoutApi,
   registerUserApi,
   updateUserApi
-} from '@api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+} from '../utils/burger-api';
+
 import { TOrder, TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../utils/cookie';
 
@@ -18,7 +18,7 @@ interface UserState {
   orders: TOrder[];
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   user: null,
   isAuth: false,
   error: null,
